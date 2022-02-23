@@ -17,9 +17,9 @@ class NewsService {
 
     if (response.body.isNotEmpty) {
       final responseJson = jsonDecode(response.body);
-
+      print(responseJson);
       News haber = News.fromJson(responseJson);
-      print(News);
+      print(haber);
       return haber.articles;
     }
     return null;

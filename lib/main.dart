@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/data/newsServices.dart';
 import 'package:newsapp/models/newsModel.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.amber,
       ),
-      home: const MyHomePage(title: 'Haberler'),
+      home: const MyHomePage(title: ' Haberler'),
     );
   }
 }
@@ -58,26 +59,26 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Column(
                 children: [
                   Image.network(
-                      'https://media.istockphoto.com/photos/abstract-digital-news-concept-picture-id1290904409'),
-                  const ListTile(
+                      articles[index].urlToImage!),
+                   ListTile(
                     leading: Icon(
                       Icons.arrow_drop_down_circle,
                       color: Colors.amber,
                     ),
                     title: Text(
-                      'Haber  Başlığı',
+                      articles[index].title!,
                       style: TextStyle(color: Colors.amber),
                     ),
                     subtitle: Text(
-                      'Yazar',
+                      articles[index].author!,
                       style: TextStyle(color: Colors.black),
                     ),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children:   [
                       Text(
-                        'Haber Detayı Haber Detayı Haber Detayı Haber Detayı Haber Detayı Haber Detayı',
+                        articles[index].description!,
                         style: TextStyle(color: Colors.black),
                       ),
                     ],
@@ -86,8 +87,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     alignment: MainAxisAlignment.start,
                     children: [
                       TextButton(
-                          onPressed: () {},
-                          child: const Text(
+                          onPressed: () async {
+                           await  launch(articles[index].url!);
+                          },
+                          child:  Text(
                             'Haber Detayı',
                             style: TextStyle(color: Colors.blue),
                           ))
